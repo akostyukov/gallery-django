@@ -1,5 +1,5 @@
-from django.shortcuts import redirect
-from django.views.generic import ListView, FormView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView
 
 from .forms import ImageForm
 from .models import ImageModel
@@ -11,13 +11,10 @@ class ImageView(ListView):
     extra_context = {'form': ImageForm()}
     template_name = 'images/index.html'
     paginate_by = 3
+    ordering = '-id'
 
 
-class AddImage(FormView):
-    form_class = ImageForm
-    template_name = 'images/index.html'
-    success_url = 'images:index'
-
-    def form_valid(self, form):
-        form.save()
-        return redirect(self.get_success_url())
+class AddImage(CreateView):
+    model = ImageModel
+    fields = ['image', 'signature']
+    success_url = reverse_lazy('images:index')
