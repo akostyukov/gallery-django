@@ -17,9 +17,24 @@
     {% for image in images %}
         <div>
             <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an_image"></a><br>
-            {{ image.signature }}
+            <b>{{ image.signature }}</b>
         </div>
     {% endfor %}
+    </div><br><br>
+
+    <div class="paginator">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">|<<|</a>
+            <a href="?page={{ page_obj.previous_page_number }}"><|</a>
+        {% endif %}
+
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">|></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">|>>|</a>
+        {% endif %}
     </div>
+
 </body>
 </html>
