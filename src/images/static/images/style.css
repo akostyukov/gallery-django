@@ -1,0 +1,10 @@
+.an_image {
+    width: 97%;
+    border-radius: 7px;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}

@@ -18,5 +18,5 @@ class AddImage(FormView):
     success_url = 'images:index'
 
     def form_valid(self, form):
-        ImageModel.objects.create(image=form['image'].value(), signature=form['signature'].value())
+        form.save()
         return redirect(self.get_success_url())

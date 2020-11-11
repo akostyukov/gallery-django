@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Gallery</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'images/style.css' %}">
 </head>
 <body>
     <form method="post" enctype="multipart/form-data" action="{% url 'images:add_image' %}">
@@ -11,11 +13,13 @@
         {{ form.signature }}<br><br>
         <input type="submit" value="Добавить"><br><br>
     </form>
-
+    <div class="wrapper">
     {% for image in images %}
-    <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" width="500" height="300"></a><br>
-        {{ image.media }}
-        {{ image.signature }}<br><br>
+        <div>
+            <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an_image"></a><br>
+            {{ image.signature }}
+        </div>
     {% endfor %}
+    </div>
 </body>
 </html>
