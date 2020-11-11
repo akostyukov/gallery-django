@@ -1,9 +1,8 @@
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import path
 from . import views
 
 app_name = 'images'
 urlpatterns = [
-    path('', views.Image.as_view(), name='index'),
+    path('', views.ImageView.as_view(), name='index'),
+    path('add/', views.AddImage.as_view(), name='add_image'),
 ]

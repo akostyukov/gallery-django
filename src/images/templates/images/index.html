@@ -5,7 +5,7 @@
     <title>Gallery</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="{% url 'images:add_image' %}">
         {% csrf_token %}
         {{ form.image }}<br><br>
         {{ form.signature }}<br><br>
@@ -13,7 +13,7 @@
     </form>
 
     {% for image in images %}
-        <img src="{{ image.image.url }}" width="500" height="300"><br>
+    <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" width="500" height="300"></a><br>
         {{ image.media }}
         {{ image.signature }}<br><br>
     {% endfor %}
