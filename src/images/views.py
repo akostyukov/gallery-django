@@ -10,6 +10,7 @@ class ImageView(ListView):
     context_object_name = 'images'
     extra_context = {'form': ImageForm()}
     template_name = 'images/index.html'
+    paginate_by = 3
 
 
 class AddImage(FormView):
