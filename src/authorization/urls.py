@@ -1,10 +1,11 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 app_name = 'authorization'
 
 urlpatterns = [
-    path('', include('django.contrib.auth.urls')),
+    path('login/', views.Login.as_view(), name='login'),
+    path('logout/', views.Logout.as_view(), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('register-user/', views.CreateUser.as_view(), name='register-user'),
+    path('create-user/', views.CreateUser.as_view(), name='create-user'),
 ]

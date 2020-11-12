@@ -5,7 +5,7 @@
     <title>Register Page</title>
 </head>
 <body>
-    <form action="{% url 'authorization:register-user' %}" method="post">
+    <form action="{% url 'authorization:create-user' %}" method="post">
         {% csrf_token %}
         Логин: {{ form.username }}<br><br>
         Пароль: {{ form.password }}<br><br>
