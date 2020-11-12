@@ -13,6 +13,9 @@
         {{ form.signature }}<br><br>
         <input type="submit" value="Добавить"><br><br>
     </form>
+
+    {{ user.username }}(<a href="/accounts/logout/">выйти</a>)<br><br>
+
     <div class="wrapper">
     {% for image in images %}
         <div>
