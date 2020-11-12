@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'authorization.apps.AuthorizationConfig',
     'images.apps.ImagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +54,7 @@ ROOT_URLCONF = 'gallery.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(BASE_DIR.joinpath('templates'))],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
