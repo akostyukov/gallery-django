@@ -1,10 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView
 
 from .forms import ImageForm
 from .models import ImageModel
 
 
+@method_decorator(login_required, name='dispatch')
 class ImageView(ListView):
     model = ImageModel
     context_object_name = 'images'
@@ -14,6 +17,7 @@ class ImageView(ListView):
     ordering = '-id'
 
 
+@method_decorator(login_required, name='dispatch')
 class AddImage(CreateView):
     model = ImageModel
     fields = ['image', 'signature']
