@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+</head>
+<body>
+    <form action="{% url 'authorization:create-user' %}" method="post">
+        {% csrf_token %}
+        Логин: {{ form.username }}<br><br>
+        Пароль: {{ form.password }}<br><br>
+        <input type="submit" value="Зарегистрироваться">
+    </form><br>
+    <a href="{% url 'authorization:login' %}">Назад</a>
+</body>
+</html>
