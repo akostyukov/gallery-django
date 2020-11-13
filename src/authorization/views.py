@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView
 
-from src.authorization.decorators import authorized
-from src.authorization.forms import UserForm
+from .decorators import authorized
+from .forms import UserForm
 
 
 @method_decorator(authorized, name='dispatch')

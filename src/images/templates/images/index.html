@@ -20,7 +20,8 @@
     {% for image in images %}
         <div>
             <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an_image"></a><br>
-            <b>{{ image.signature }}</b>
+            <b>{{ image.signature }}</b><br>
+            Автор: <b>{{ image.user.username }}</b>
         </div>
     {% endfor %}
     </div><br><br>
