@@ -7,14 +7,20 @@
     <link rel="stylesheet" type="text/css" href="{% static 'images/style.css' %}">
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" action="{% url 'images:add_image' %}">
-        {% csrf_token %}
-        {{ form.image }}<br><br>
-        {{ form.signature }}<br><br>
-        <input type="submit" value="Добавить"><br><br>
-    </form>
+    {% if user.is_authenticated %}
+        <form method="post" enctype="multipart/form-data" action="{% url 'images:add_image' %}">
+            {% csrf_token %}
+            {{ form.image }}<br><br>
+            {{ form.signature }}<br><br>
+            <input type="submit" value="Добавить"><br><br>
+        </form>
+    {% else %}
+        <a href="{% url 'authorization:login' %}">Авторизоваться</a><br><br>
+    {% endif %}
 
-    <b>{{ user.username }}</b> (<a href="/accounts/logout/">выйти</a>)<br><br>
+    {% if user.is_authenticated %}
+        <b>{{ user.username }}</b> (<a href="/accounts/logout/">выйти</a>)<br><br>
+    {% endif %}
 
     <div class="wrapper">
     {% for image in images %}

@@ -8,7 +8,6 @@ from .forms import ImageForm
 from .models import ImageModel
 
 
-@method_decorator(login_required, name='dispatch')
 class ImageView(ListView):
     model = ImageModel
     context_object_name = 'images'
