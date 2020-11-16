@@ -27,7 +27,17 @@
         <div>
             <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an_image"></a><br>
             <b>{{ image.signature }}</b><br>
-            Автор: <b>{{ image.user.username }}</b>
+            Автор: <b>{{ image.user.username }}</b><br>
+            {% if user.is_authenticated %}
+                {% if user in image.likes.all %}
+                    <a href="{% url 'images:like' image.id %}" class="button"><img src="{% static 'images/icons/like_set.png' %}"></a> {{ image.likes.count }}
+                {% else %}
+                    <a href="{% url 'images:like' image.id %}" class="button"><img src="{% static 'images/icons/like_unset.png' %}"></a> {{ image.likes.count }}
+                {% endif %}
+            {% else %}
+                <img src="{% static 'images/icons/like_unset.png' %}"> {{ image.likes.count }}
+            {% endif %}
+            | <a href="{% url 'comments:index' image.id %}"><img src="{% static 'images/icons/comment.png' %}"></a> 0
         </div>
     {% endfor %}
     </div><br><br>
@@ -45,6 +55,20 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">|>>|</a>
         {% endif %}
     </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // AJAX CALL
+    $('.likin').click(function(){
+        $.ajax({
+                 type: "GET",
+                 url: "{% url 'images:like' 1 %}",
+                 data: {'content_id': $(this).attr('name'),'operation':'like_submit','csrfmiddlewaretoken': '{{ csrf_token }}'},
+                 dataType: "json",
+                 success: function(response) {
+            });
+      })
+</script>
 
 </body>
 </html>

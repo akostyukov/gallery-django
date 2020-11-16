@@ -5,4 +5,5 @@ app_name = 'images'
 urlpatterns = [
     path('', views.ImageView.as_view(), name='index'),
     path('add/', views.AddImage.as_view(), name='add_image'),
+    path('like/<int:image_id>/', views.like, name='like'),
 ]
