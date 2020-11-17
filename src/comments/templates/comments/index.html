@@ -7,19 +7,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'comments/style.css' %}">
 </head>
 <body>
-    <img src="{{ image.image.url }}" class="an_image"><br>
+    <img src="{{ image.image.url }}" class="an_image"><br><br>
 
-    {% if comments %}
-        {% for comment in comments %}
-            {{ comment.author.username }}: {{ comment.text }}
-        {% endfor %}
+    {% for comment in comments %}
+    <b>{{ comment.author.username }}</b>: {{ comment.text }}<br>
+    {% endfor %}<br>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'comments:submit' image.id%}">
+            {% csrf_token %}
+            {{ user.username }}: {{ form.text }}
+            <input type="submit" value="Отправить">
+        </form><br>
     {% endif %}
-
-    <form method="post" action="{% url 'comments:submit' image.id%}">
-        {% csrf_token %}
-        {{ user.username }}: {{ form.text }}
-        <input type="submit" value="Отправить">
-    </form>
 
     <a href="{% url 'images:index' %}">Назад</a>
 </body>

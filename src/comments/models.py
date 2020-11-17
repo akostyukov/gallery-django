@@ -7,4 +7,4 @@ from images.models import ImageModel
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
-    image = models.ForeignKey(ImageModel, on_delete=models.CASCADE)
+    image = models.ForeignKey(ImageModel, related_name='comments', on_delete=models.CASCADE)

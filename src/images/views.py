@@ -1,8 +1,6 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, RedirectView
 
 from .forms import ImageForm
 from .models import ImageModel
@@ -17,8 +15,8 @@ class ImageView(ListView):
     ordering = '-id'
 
 
-@method_decorator(login_required, name='dispatch')
-class AddImage(CreateView):
+class AddImage(LoginRequiredMixin, CreateView):
+    login_url = 'authorization:login'
     model = ImageModel
     fields = ['image', 'signature']
     success_url = reverse_lazy('images:index')
@@ -28,11 +26,25 @@ class AddImage(CreateView):
         return super().form_valid(form)
 
 
-def like(request, image_id):
-    image = ImageModel.objects.get(id=image_id)
+class LikeView(LoginRequiredMixin, RedirectView):
+    login_url = 'authorization:login'
 
-    if image.likes.filter(id=request.user.id).exists():
-        image.likes.remove(request.user)
-    else:
-        image.likes.add(request.user)
-    return redirect('images:index')
+    def get_redirect_url(self, *args, **kwargs):
+        text = self.request.GET.get('like')
+        print()
+        print(text)
+        print()
+        return reverse_lazy('images:index')
+
+# class LikeView(LoginRequiredMixin, RedirectView):
+#     login_url = 'authorization:login'
+#
+#     def get_redirect_url(self, *args, **kwargs):
+#         image = ImageModel.objects.get(id=self.kwargs['pk'])
+#
+#         if image.likes.filter(id=self.request.user.id).exists():
+#             image.likes.remove(self.request.user)
+#         else:
+#             image.likes.add(self.request.user)
+#
+#         return reverse_lazy('images:index')
