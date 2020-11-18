@@ -1,15 +1,12 @@
-$(document).ready(function(){
-    $(".like").click(function(){
-        $.ajax({
-            url: "",
-            type: "GET",
-            data: {
-                button_text: $(this).text()
+$('.btn').click(function(){
+    $.ajax({
+            url: "like/1/",
+            type: 'get',
+            success: function(response){
+              alert("Все четко");
             },
-            success: function(response) {
-                $.(".like").text(response.seconds)
+            error: function(rs, r){
+              alert("Ты обосрался");
             }
-        });
-    });
-
-});
+  })
+ });

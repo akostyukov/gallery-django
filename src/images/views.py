@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views.generic import View
 from django.views.generic import ListView, CreateView, RedirectView
 
 from .forms import ImageForm
@@ -30,10 +32,13 @@ class LikeView(LoginRequiredMixin, RedirectView):
     login_url = 'authorization:login'
 
     def get_redirect_url(self, *args, **kwargs):
-        text = self.request.GET.get('like')
-        print()
-        print(text)
-        print()
+        image = ImageModel.objects.get(id=self.kwargs['pk'])
+
+        if image.likes.filter(id=self.request.user.id).exists():
+            image.likes.remove(self.request.user)
+        else:
+            image.likes.add(self.request.user)
+
         return reverse_lazy('images:index')
 
 # class LikeView(LoginRequiredMixin, RedirectView):

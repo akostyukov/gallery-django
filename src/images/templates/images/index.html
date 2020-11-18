@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" type="text/css" href="{% static 'images/style.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{% static 'images/scripts/ajax-like.js' %}"></script>
 </head>
 <body>
     {% if user.is_authenticated %}
@@ -34,7 +32,7 @@
                 {% if user in image.likes.all %}
                     <a href="{% url 'images:like' image.id %}" class="like"><img src="{% static 'images/icons/like_set.png' %}"></a>
                 {% else %}
-                    <a href="{% url 'images:like' image.id %}" class="like" id="like"><img src="{% static 'images/icons/like_unset.png' %}"></a>
+                    <a href="{% url 'images:like' image.id %}" class="like"><img src="{% static 'images/icons/like_unset.png' %}"></a>
                 {% endif %}
             {% else %}
                 <img src="{% static 'images/icons/like_unset.png' %}">
@@ -43,6 +41,11 @@
         </div>
     {% endfor %}
     </div><br><br>
+
+    <button type="button" class="btn">Like</button> <!--ТУТ КНОПКА-->
+
+
+
 
     <div class="paginator">
         {% if page_obj.has_previous %}
@@ -57,5 +60,8 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">|>>|</a>
         {% endif %}
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'images/scripts/ajax-like.js' %}"></script>
 </body>
 </html>
