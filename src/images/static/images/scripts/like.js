@@ -5,9 +5,7 @@ $('.like').click(function(){
             url: 'like/'+$(this).attr('name')+'/',
             type: 'get',
             success: function(response){
-              likeIcon.attr('src', likeIcon.attr('src') === '/static/images/icons/like_unset.png'
-               ? '/static/images/icons/like_set.png'
-               : '/static/images/icons/like_unset.png')
+              likeIcon.attr('src', response.image_url);
               likeCounter.text(response.likes);
             },
             error: function(rs, r){

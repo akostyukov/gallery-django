@@ -36,7 +36,10 @@ class LikeView(LoginRequiredMixin, RedirectView):
 
         if image.likes.filter(id=self.request.user.id).exists():
             image.likes.remove(self.request.user)
+            image_url = '/static/images/icons/like_unset.png'
         else:
             image.likes.add(self.request.user)
+            image_url = '/static/images/icons/like_set.png'
 
-        return HttpResponse(json.dumps({'likes': image.likes.count()}), content_type='application/json')
+        data = {'likes': image.likes.count(), 'image_url': image_url}
+        return HttpResponse(json.dumps(data), content_type='application/json')
