@@ -1,4 +1,9 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import serializers
+
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import View
@@ -31,7 +36,7 @@ class AddImage(LoginRequiredMixin, CreateView):
 class LikeView(LoginRequiredMixin, RedirectView):
     login_url = 'authorization:login'
 
-    def get_redirect_url(self, *args, **kwargs):
+    def get(self, *args, **kwargs):
         image = ImageModel.objects.get(id=self.kwargs['pk'])
 
         if image.likes.filter(id=self.request.user.id).exists():
@@ -39,17 +44,4 @@ class LikeView(LoginRequiredMixin, RedirectView):
         else:
             image.likes.add(self.request.user)
 
-        return reverse_lazy('images:index')
-
-# class LikeView(LoginRequiredMixin, RedirectView):
-#     login_url = 'authorization:login'
-#
-#     def get_redirect_url(self, *args, **kwargs):
-#         image = ImageModel.objects.get(id=self.kwargs['pk'])
-#
-#         if image.likes.filter(id=self.request.user.id).exists():
-#             image.likes.remove(self.request.user)
-#         else:
-#             image.likes.add(self.request.user)
-#
-#         return reverse_lazy('images:index')
+        return HttpResponse(json.dumps({'likes': image.likes.count()}), content_type='application/json')

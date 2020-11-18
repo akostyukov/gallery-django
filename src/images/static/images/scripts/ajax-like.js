@@ -1,12 +1,17 @@
-$('.btn').click(function(){
+$('.like').click(function(){
+    var likeIcon = $(this).find('img')
+    var likeCounter = $(this).parent().find('.like_counter')
     $.ajax({
-            url: "like/1/",
+            url: 'like/'+$(this).attr('name')+'/',
             type: 'get',
             success: function(response){
-              alert("Все четко");
+              likeIcon.attr('src', likeIcon.attr('src') === '/static/images/icons/like_unset.png'
+               ? '/static/images/icons/like_set.png'
+               : '/static/images/icons/like_unset.png')
+              likeCounter.text(response.likes);
             },
             error: function(rs, r){
-              alert("Ты обосрался");
+              alert("Произошла ошибка");
             }
-  })
- });
+    })
+});

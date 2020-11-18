@@ -30,22 +30,17 @@
             Автор: <b>{{ image.user.username }}</b><br>
             {% if user.is_authenticated %}
                 {% if user in image.likes.all %}
-                    <a href="{% url 'images:like' image.id %}" class="like"><img src="{% static 'images/icons/like_set.png' %}"></a>
+                    <a name="{{ image.id }}" class="like"><img src="{% static 'images/icons/like_set.png' %}"></a>
                 {% else %}
-                    <a href="{% url 'images:like' image.id %}" class="like"><img src="{% static 'images/icons/like_unset.png' %}"></a>
+                    <a name="{{ image.id }}" class="like"><img src="{% static 'images/icons/like_unset.png' %}"></a>
                 {% endif %}
             {% else %}
                 <img src="{% static 'images/icons/like_unset.png' %}">
             {% endif %}
-            {{ image.likes.count }} | <a href="{% url 'comments:image' image.id %}"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
+            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'comments:image' image.id %}"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
         </div>
     {% endfor %}
     </div><br><br>
-
-    <button type="button" class="btn">Like</button> <!--ТУТ КНОПКА-->
-
-
-
 
     <div class="paginator">
         {% if page_obj.has_previous %}
