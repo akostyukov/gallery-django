@@ -12,3 +12,7 @@
 .paginator {
     text-align: center;
 }
+
+.like {
+    cursor: pointer;
+}

@@ -27,7 +27,17 @@
         <div>
             <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an_image"></a><br>
             <b>{{ image.signature }}</b><br>
-            Автор: <b>{{ image.user.username }}</b>
+            Автор: <b>{{ image.user.username }}</b><br>
+            {% if user.is_authenticated %}
+                {% if user in image.likes.all %}
+                    <a name="{{ image.id }}" class="like"><img src="{% static 'images/icons/like_set.png' %}"></a>
+                {% else %}
+                    <a name="{{ image.id }}" class="like"><img src="{% static 'images/icons/like_unset.png' %}"></a>
+                {% endif %}
+            {% else %}
+                <img src="{% static 'images/icons/like_unset.png' %}">
+            {% endif %}
+            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'comments:image' image.id %}"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
         </div>
     {% endfor %}
     </div><br><br>
@@ -46,5 +56,7 @@
         {% endif %}
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'images/scripts/like.js' %}"></script>
 </body>
 </html>
