@@ -1,8 +1,17 @@
 FROM python:3
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED=1
-WORKDIR /gallery/
-COPY /src /gallery/src/
-COPY deploy/requirements.txt /gallery/requirements.txt
-RUN pip install -r requirements.txt
+
+ENV APP_HOME=/gallery/
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media
+WORKDIR $APP_HOME
+
+COPY Pipfile $APP_HOME
+COPY Pipfile.lock $APP_HOME
+RUN pip install pipenv
+RUN pipenv install --system
+
 COPY /src /gallery/src
