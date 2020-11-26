@@ -1,4 +1,4 @@
-.an_image {
+.an-image {
     width: 95%;
     border-radius: 7px;
 }
@@ -15,4 +15,9 @@
 
 .like {
     cursor: pointer;
+}
+
+.comments-image {
+    width: 35%;
+    border-radius: 7px;
 }

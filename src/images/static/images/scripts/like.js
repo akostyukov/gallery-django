@@ -2,14 +2,18 @@ $('.like').click(function(){
     var likeIcon = $(this).find('img')
     var likeCounter = $(this).parent().find('.like_counter')
     $.ajax({
-            url: 'like/'+$(this).attr('name')+'/',
+            url: $(this).attr('name')+'/like/',
             type: 'get',
             success: function(response){
-              likeIcon.attr('src', response.image_url);
-              likeCounter.text(response.likes);
+              if (likeIcon.attr('src') === '/static/images/icons/like_unset.png') {
+                  likeIcon.attr('src', '/static/images/icons/like_set.png')
+              } else {
+                  likeIcon.attr('src', '/static/images/icons/like_unset.png')
+              }
+              likeCounter.text(response.likes)
             },
             error: function(rs, r){
-              alert("Произошла ошибка");
+              alert("Произошла ошибка")
             }
     })
 });

@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -30,8 +29,5 @@ class CreateUser(FormView):
     success_url = reverse_lazy('authorization:login')
 
     def form_valid(self, form):
-        user = User.objects.create_user(username=form['username'].value())
-        user.set_password(form['password'].value())
-        user.save()
-
+        form.save()
         return redirect(self.get_success_url())
