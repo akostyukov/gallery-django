@@ -9,10 +9,11 @@
 <body>
     <img src="{{ image.image.url }}" class="comments-image"><br><br>
 
-
-    {% for comment in comments %}
-    <b>{{ comment.author.username }}</b>: {{ comment.text }}<br>
-    {% endfor %}<br>
+    <div class="comments-block">
+        {% for comment in comments %}
+            <b>{{ comment.author.username }}</b>: {{ comment.text }}<br>
+        {% endfor %}
+    </div><br>
 
     {% if user.is_authenticated %}
         <form method="post" id="add-form" action="{% url 'images:add-comment' image.id %}">

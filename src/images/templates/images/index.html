@@ -37,7 +37,7 @@
             {% else %}
                 <img src="{% static 'images/icons/like_unset.png' %}">
             {% endif %}
-            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'images:image' image.id %}"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
+            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'images:image' image.id %}" name="{{ image.id }}" class="comments"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
         </div>
     {% endfor %}
     </div><br><br>
