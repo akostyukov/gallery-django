@@ -8,7 +8,7 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data" action="{% url 'images:add_image' %}">
+        <form method="post" enctype="multipart/form-data" action="{% url 'images:add-image' %}">
             {% csrf_token %}
             {{ form.image }}<br><br>
             {{ form.signature }}<br><br>
@@ -25,7 +25,7 @@
     <div class="wrapper">
     {% for image in images %}
         <div>
-            <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an_image"></a><br>
+            <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an-image"></a><br>
             <b>{{ image.signature }}</b><br>
             Автор: <b>{{ image.user.username }}</b><br>
             {% if user.is_authenticated %}
@@ -37,7 +37,7 @@
             {% else %}
                 <img src="{% static 'images/icons/like_unset.png' %}">
             {% endif %}
-            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'comments:image' image.id %}"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
+            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'images:image' image.id %}" name="{{ image.id }}" class="comments"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
         </div>
     {% endfor %}
     </div><br><br>
@@ -56,7 +56,7 @@
         {% endif %}
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'images/scripts/like.js' %}"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="{% static 'images/scripts/like.js' %}"></script>
 </body>
 </html>
