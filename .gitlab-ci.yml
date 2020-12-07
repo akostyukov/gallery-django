@@ -1,25 +1,23 @@
 stages:
-  - build
-  - release
+ - package
+ - deploy
+
 
 build_image:
-  only:
-    - master
-  stage: build
-  variables:
-  before_script:
-    - curl https://cli-assets.heroku.com/install.sh | sh
-    - sed -i '/^mountopt =.*/d' /etc/containers/storage.conf
+  image: docker:latest
+  services:
+  - docker:dind
+  stage: package
   script:
-    - buildah bud --iidfile iidfile -t rust-python-demo:$CI_COMMIT_SHORT_SHA .
-    - buildah push --creds=_:$(heroku auth:8747ebca-6761-46b7-bf5d-7876529a4f9f) $(cat iidfile) registry.heroku.com/gallery-django /web
+    - docker login -u gitlab-ci-token -p JoVQuem8yXenC2axX1V- registry.gitlab.com
+    - docker build -t registry.gitlab.com/maciejsobala/gallery-django .
+    - docker push registry.gitlab.com/akostyukov/gallery-django:latest
 
-release:
-  only:
-    - master
-  stage: release
-  before_script:
-    - apk add curl bash
-    - curl https://cli-assets.heroku.com/install.sh | sh
+deploy_to_heroku:
+  stage: deploy
+  services:
+  - docker:dind
   script:
-    - heroku container:release -a gallery-django web
+    - docker login --email=_ --username=_ --password=8747ebca-6761-46b7-bf5d-7876529a4f9f registry.heroku.com
+    - docker tag registry.gitlab.com/akostyukov/gallery-django:latest registry.heroku.com/akostyukov/gallery-django:latest
+    - docker push registry.heroku.com/akostyukov/gallery-django:latest
