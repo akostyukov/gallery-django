@@ -20,5 +20,3 @@ CMD python src/manage.py migrate && \
     python src/manage.py collectstatic --noinput && \
     cd src && \
     gunicorn gallery.wsgi:application --bind 0.0.0.0:$PORT
-
-# python src/manage.py makemigrations && \
