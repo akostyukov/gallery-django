@@ -13,7 +13,6 @@ Deployment:
     - git push heroku master
     # - heroku container:push web --context-path ../
     # - heroku container:release web
-    # - export HEROKU_API_KEY=$HEROKU_APIKEY
     # - heroku run --app $HEROKU_APPNAME python manage.py migrate
   environment:
     name: production
