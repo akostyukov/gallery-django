@@ -1,16 +1,15 @@
-stages:
-  - deploy
+image: python:latest
 
-Deployment:
-  image: ruby:2.4
-  stage: deploy
-  before_script:
+before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
     - gem install dpl
-    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-  script:
-    - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
-    - heroku container:push web --context-path ../
-    - heroku container:release web
-  environment:
-    name: production
-    # url: https://gallery-django.herokuapp.com
+
+stages:
+    - deployment
+
+staging:
+    stage: deployment
+    image: ruby:latest
+    script:
+        - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
