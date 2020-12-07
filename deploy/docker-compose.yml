@@ -28,7 +28,7 @@ services:
       - static_volume:/gallery/src/static
       - media_volume:/gallery/src/media
     ports:
-      - 8888:80
+      - 8000:80
     depends_on:
       - web
 volumes:
