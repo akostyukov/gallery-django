@@ -9,8 +9,8 @@ Deployment:
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
   script:
     - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
-    # - heroku container:push web --context-path ../
-    # - heroku container:release web
+    - heroku container:push web --context-path ../
+    - heroku container:release web
   environment:
     name: production
     # url: https://gallery-django.herokuapp.com
