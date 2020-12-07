@@ -1,19 +1,25 @@
-image: python:latest
-
-before_script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-
 stages:
-    - deployment
+  - build
+  - release
 
-staging:
-    stage: deployment
-    image: ruby:latest
-    script:
-        - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
-        - python src/manage.py migrate && \
-        - python src/manage.py collectstatic --noinput && \
-        - cd src && \
-        - gunicorn gallery.wsgi:application --bind 0.0.0.0:$PORT
+build_image:
+  only:
+    - master
+  stage: build
+  variables:
+  before_script:
+    - curl https://cli-assets.heroku.com/install.sh | sh
+    - sed -i '/^mountopt =.*/d' /etc/containers/storage.conf
+  script:
+    - buildah bud --iidfile iidfile -t rust-python-demo:$CI_COMMIT_SHORT_SHA .
+    - buildah push --creds=_:$(heroku auth:8747ebca-6761-46b7-bf5d-7876529a4f9f) $(cat iidfile) registry.heroku.com/gallery-django /web
+
+release:
+  only:
+    - master
+  stage: release
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
+    - heroku container:release -a gallery-django web
