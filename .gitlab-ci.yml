@@ -13,4 +13,4 @@ Deployment:
     - heroku container:release web
   environment:
     name: production
-    url: https://gallery-django.herokuapp.com
+    # url: https://gallery-django.herokuapp.com
