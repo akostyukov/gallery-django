@@ -8,6 +8,8 @@ Deployment:
     - gem install dpl
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
   script:
+    - export HEROKU_APP_PRODUCTION
+    - export HEROKU_API_KEY
     - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
     # - heroku container:push web --context-path ../
     # - heroku container:release web
