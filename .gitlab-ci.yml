@@ -3,6 +3,7 @@ image: python:latest
 before_script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
+    - apt-get install git -yqq
     - gem install dpl
 
 stages:
