@@ -1,9 +1,8 @@
 build:
   docker:
+    release:
+      target: ../
     web: deploy/Dockerfile
-
-release:
-  image: web
 
 run:
     web: "python src/manage.py migrate && \
