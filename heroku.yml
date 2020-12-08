@@ -1,9 +1,9 @@
 build:
   docker:
     web: Dockerfile
-    context-path: ../
 
 run:
+    image: web
     web: "python src/manage.py migrate && \
          python src/manage.py collectstatic --noinput && \
          cd src && \
