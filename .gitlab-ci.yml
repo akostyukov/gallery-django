@@ -1,4 +1,4 @@
-image: python:latest
+# image: python:latest
 
 before_script:
     - apt-get update -qy
@@ -10,6 +10,6 @@ stages:
 
 deploy:
   stage: deploy
-  image: ruby:latest
+  # image: ruby:latest
   script:
     - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
