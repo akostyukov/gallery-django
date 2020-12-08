@@ -3,7 +3,7 @@ build:
     release:
       dockerfile: deploy/Dockerfile
       target: ../
-    web: deploy/Dockerfile
+    # web: deploy/Dockerfile
 
 run:
     web: "python src/manage.py migrate && \
