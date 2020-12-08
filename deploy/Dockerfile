@@ -11,7 +11,7 @@ WORKDIR $APP_HOME
 
 RUN cd ..
 
-COPY . $APP_HOME
+COPY ./src $APP_HOME
 
 RUN ls
 
