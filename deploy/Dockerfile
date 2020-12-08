@@ -15,7 +15,7 @@ RUN cd .. && ls
 
 RUN echo "---------------"
 
-RUN cd gallery/ && ls
+RUN ls
 
 COPY Pipfile.lock $APP_HOME
 RUN pip install pipenv
