@@ -1,6 +1,6 @@
 build:
   docker:
-    web: deploy/Dockerfile
+    web: Dockerfile
 
 run:
     web: gunicorn gallery.wsgi:application --bind 0.0.0.0:$PORT
