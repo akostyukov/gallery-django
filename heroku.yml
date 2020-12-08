@@ -1,4 +1,5 @@
 build:
   docker:
     web: deploy/Dockerfile
-    context: .
+
+  context: .
