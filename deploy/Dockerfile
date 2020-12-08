@@ -10,12 +10,12 @@ RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
 
 RUN ls
-COPY Pipfile $APP_HOME
-COPY Pipfile.lock $APP_HOME
+COPY . $APP_HOME
+COPY . $APP_HOME
 RUN pip install pipenv
 RUN pipenv install --system
 
-COPY /src /gallery/src
+COPY . /gallery/src
 
 CMD python src/manage.py migrate && \
     python src/manage.py collectstatic --noinput && \
