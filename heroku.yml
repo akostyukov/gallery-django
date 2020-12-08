@@ -1,5 +1,5 @@
 build:
   docker:
-    web:
-      dockerfile: deploy/Dockerfile
-      target: .
+    web: deploy/Dockerfile
+
+  context: ./
