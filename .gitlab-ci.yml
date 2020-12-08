@@ -12,7 +12,4 @@ deploy:
   stage: deploy
   image: ruby:latest
   script:
-    # - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
-    - echo "Hello"
-  only:
-    - master
+    - dpl --provider=heroku --app=gallery-django --api-key=8747ebca-6761-46b7-bf5d-7876529a4f9f
