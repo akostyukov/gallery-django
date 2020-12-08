@@ -9,7 +9,9 @@ RUN mkdir $APP_HOME/static
 RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
 
-COPY /src $APP_HOME
+RUN cd ..
+
+COPY . $APP_HOME
 
 RUN ls
 
