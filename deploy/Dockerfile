@@ -9,7 +9,6 @@ RUN mkdir $APP_HOME/static
 RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
 
-
 COPY Pipfile $APP_HOME
 COPY Pipfile.lock $APP_HOME
 RUN pip install pipenv
