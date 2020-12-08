@@ -1,5 +1,5 @@
 build:
   docker:
     web:
-      dockerfile: Dockerfile
-      target: deploy
+      dockerfile: deploy/Dockerfile
+      target: .
