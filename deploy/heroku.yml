@@ -2,4 +2,4 @@ build:
   docker:
     web:
       dockerfile: deploy/Dockerfile
-      context: gallery/
+      context: ../
