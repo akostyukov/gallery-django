@@ -2,4 +2,5 @@ build:
   docker:
     web: deploy/Dockerfile
 
-  context: ./
+run:
+    web: gunicorn gallery.wsgi:application --bind 0.0.0.0:$PORT
