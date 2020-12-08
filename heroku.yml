@@ -1,4 +1,6 @@
 build:
-    web: deploy/Dockerfile
+  docker:
+      web: deploy/Dockerfile
+      worker: Dockerfile
 #run:
 #  web: bundle exec puma -C config/puma.rb
