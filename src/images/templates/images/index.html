@@ -26,7 +26,11 @@
     {% for image in images %}
         <div>
             <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an-image"></a><br>
-            <b>{{ image.signature }}</b><br>
+
+            {% if image:signature %}
+                <b>{{ image.signature }}</b><br>
+            {% endif %}
+
             Автор: <b>{{ image.user.username }}</b><br>
             {% if user.is_authenticated %}
                 {% if user in image.likes.all %}
