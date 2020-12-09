@@ -4,7 +4,7 @@ from django.db import models
 
 class Image(models.Model):
     image = models.ImageField(upload_to='images/')
-    signature = models.CharField(max_length=100, blank=True, null=True, default='')
+    signature = models.CharField(max_length=100, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
     comments = models.ManyToManyField(User, blank=True, related_name='comments', through='Comment')
