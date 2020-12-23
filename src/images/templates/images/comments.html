@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Comments</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'images/style.css' %}">
+</head>
+<body>
+    <img src="{{ image.image.url }}" class="comments-image"><br><br>
+
+    <div class="comments-block"></div><br>
+
+    {% if user.is_authenticated %}
+        <form method="post" class="add-comment" name="{{ image.id }}" action="{% url 'images:add-comment' image.id %}">
+            {% csrf_token %}
+            {{ user.username }}: {{ form.text }}
+            <button type="submit">Отправить</button>
+        </form><br>
+    {% endif %}
+
+    <a href="{% url 'images:index' %}">Назад</a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'images/scripts/comments.js' %}"></script>
+</body>
+</html>

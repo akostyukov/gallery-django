@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'images/style.css' %}">
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <form method="post" enctype="multipart/form-data" action="{% url 'images:add-image' %}">
+            {% csrf_token %}
+            {{ form.image }}<br><br>
+            {{ form.signature }}<br><br>
+            <input type="submit" value="Добавить"><br><br>
+        </form>
+    {% else %}
+        <a href="{% url 'authorization:login' %}">Авторизоваться</a><br><br>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <b>{{ user.username }}</b> (<a href="/accounts/logout/">выйти</a>)<br><br>
+    {% endif %}
+
+    <div class="wrapper">
+    {% for image in images %}
+        <div>
+            <a href="{{image.image.url}}" target="_blank"><img src="{{ image.image.url }}" class="an-image"></a><br>
+            <b>{{ image.signature }}</b><br>
+            Автор: <b>{{ image.user.username }}</b><br>
+            {% if user.is_authenticated %}
+                {% if user in image.likes.all %}
+                    <a name="{{ image.id }}" class="like"><img src="{% static 'images/icons/like_set.png' %}"></a>
+                {% else %}
+                    <a name="{{ image.id }}" class="like"><img src="{% static 'images/icons/like_unset.png' %}"></a>
+                {% endif %}
+            {% else %}
+                <img src="{% static 'images/icons/like_unset.png' %}">
+            {% endif %}
+            <span class="like_counter">{{ image.likes.count }}</span> | <a href="{% url 'images:image' image.id %}" name="{{ image.id }}" class="comments"><img src="{% static 'images/icons/comment.png' %}"></a> {{ image.comments.count }}
+        </div>
+    {% endfor %}
+    </div><br><br>
+
+    <div class="paginator">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">|<<|</a>
+            <a href="?page={{ page_obj.previous_page_number }}"><|</a>
+        {% endif %}
+
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">|></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">|>>|</a>
+        {% endif %}
+    </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="{% static 'images/scripts/like.js' %}"></script>
+</body>
+</html>

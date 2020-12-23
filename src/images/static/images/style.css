@@ -1,0 +1,23 @@
+.an-image {
+    width: 95%;
+    border-radius: 7px;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}
+
+.paginator {
+    text-align: center;
+}
+
+.like, .comments {
+    cursor: pointer;
+}
+
+.comments-image {
+    width: 35%;
+    border-radius: 7px;
+}
